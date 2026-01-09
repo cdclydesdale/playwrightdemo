@@ -1,5 +1,5 @@
 import {test, expect, Browser, Page, BrowserContext} from '@playwright/test';
-import {chrommium, firefox, webkit} from 'playwright';
+import {chromium, firefox, webkit} from 'playwright';
 
 test('Login Test', async() => {
 const browser:Browser = await webkit.launch({ headless: true });
