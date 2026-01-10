@@ -22,3 +22,39 @@ test('dropdown tests', async () => {
   await browserContext1.close();
   await browser.close();
 });
+
+test('mouse hover and click', async() => {
+  const browser:Browser = await chromium.launch({headless:true});
+  const browserContext1 = await browser.newContext();
+  const page1:Page = await browserContext1.newPage();
+  await page1.goto('https://www.wired.com/');
+  const accountDropDown = page1.locator("(//span[@data-testid='identityDropdown'])[2]");
+  await accountDropDown.click();
+  await page1.getByText('SCIENCE').first().click();
+  await page1.waitForTimeout(2000);
+  await browserContext1.close();
+
+  console.log('Testing out mouse right click')
+  const browserContext2 = await browser.newContext();
+  const page2:Page = await browserContext2.newPage();
+  await page2.goto('https://the-internet.herokuapp.com/context_menu');
+  page2.once('dialog', async (dialog) => {
+    await dialog.accept();
+  });
+  await page2.locator('#hot-spot').click({button: 'right'});
+  await page2.waitForTimeout(2000);
+  await browserContext2.close();
+  
+  console.log('Testing out mouse hover')
+  const browserContext3 = await browser.newContext();
+  const page3:Page = await browserContext3.newPage();
+  await page3.goto('https://the-internet.herokuapp.com/hovers');
+  const figures = page3.locator('.figure');
+  await figures.nth(0).hover();
+  await figures.nth(1).hover();
+  await figures.nth(2).hover();
+  await page3.waitForTimeout(2000);
+  await browserContext3.close();
+
+  await browser.close();
+});
