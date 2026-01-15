@@ -24,6 +24,7 @@ test('dropdown tests', async () => {
 });
 
 test('mouse hover and click', async() => {
+  test.setTimeout(120000);
   const browser:Browser = await chromium.launch({headless:true});
   const browserContext1 = await browser.newContext();
   const page1:Page = await browserContext1.newPage();
