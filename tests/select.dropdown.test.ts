@@ -24,6 +24,7 @@ test('dropdown tests', async () => {
 });
 
 test('mouse hover and click', async() => {
+  test.setTimeout(120000);
   const browser:Browser = await chromium.launch({headless:true});
   const browserContext1 = await browser.newContext();
   const page1:Page = await browserContext1.newPage();
@@ -45,7 +46,7 @@ test('mouse hover and click', async() => {
   await page2.waitForTimeout(2000);
   await browserContext2.close();
   
-  console.log('Testing out mouse hover')
+  `console.log('Testing out mouse hover')
   const browserContext3 = await browser.newContext();
   const page3:Page = await browserContext3.newPage();
   await page3.goto('https://the-internet.herokuapp.com/hovers');
@@ -56,5 +57,15 @@ test('mouse hover and click', async() => {
   await page3.waitForTimeout(2000);
   await browserContext3.close();
 
+  console.log('Sequientially enter text');
+  const browserContext4 = await browser.newContext();
+  const page4:Page = await browserContext4.newPage();
+  await page4.goto('https://www.amazon.com/');
+  const searchBox = page4.locator('[id=twotabsearchtextbox]');
+  await searchBox.pressSequentially('M3 Macbook Pro 36GB Black', {delay: 500});
+  await page4.waitForTimeout(3000);
+  const searchIcon = page4.locator("input[id='nav-search-submit-button']");
+  await searchIcon.click();
+  await browserContext4.close();`
   await browser.close();
 });
