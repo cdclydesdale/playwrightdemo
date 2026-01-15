@@ -46,7 +46,7 @@ test('mouse hover and click', async() => {
   await page2.waitForTimeout(2000);
   await browserContext2.close();
   
-  console.log('Testing out mouse hover')
+  `console.log('Testing out mouse hover')
   const browserContext3 = await browser.newContext();
   const page3:Page = await browserContext3.newPage();
   await page3.goto('https://the-internet.herokuapp.com/hovers');
@@ -66,6 +66,6 @@ test('mouse hover and click', async() => {
   await page4.waitForTimeout(3000);
   const searchIcon = page4.locator("input[id='nav-search-submit-button']");
   await searchIcon.click();
-  await browserContext4.close();
+  await browserContext4.close();`
   await browser.close();
 });
