@@ -56,5 +56,15 @@ test('mouse hover and click', async() => {
   await page3.waitForTimeout(2000);
   await browserContext3.close();
 
+  console.log('Sequientially enter text');
+  const browserContext4 = await browser.newContext();
+  const page4:Page = await browserContext4.newPage();
+  await page4.goto('https://www.amazon.com/');
+  const searchBox = page4.locator('[id=twotabsearchtextbox]');
+  await searchBox.pressSequentially('M3 Macbook Pro 36GB Black', {delay: 500});
+  await page4.waitForTimeout(3000);
+  const searchIcon = page4.locator("input[id='nav-search-submit-button']");
+  await searchIcon.click();
+  await browserContext4.close();
   await browser.close();
 });
