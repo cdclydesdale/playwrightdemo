@@ -2,7 +2,7 @@ import {test, expect, Browser, Page, BrowserContext} from '@playwright/test';
 import {chromium, firefox, webkit} from 'playwright';
 
 test('Login Test', async() => {
-const browser:Browser = await webkit.launch({ headless: true });
+const browser:Browser = await chromium.launch({ headless: true });
 
 const browserContext1 = await browser.newContext();
 
@@ -22,7 +22,12 @@ await page2.goto('https://naveenautomationlabs.com/opencart/index.php?route=acco
 await expect(page2).toHaveTitle("Account Login");
 await browserContext2.close(); 
 
+const browserContext3 = await browser.newContext({ baseURL: 'https://the-internet.herokuapp.com' });
+const page3:Page = await browserContext3.newPage();
+await page3.goto('/login');
+const username = page3.locator('#username').fill('clydesdale');
+await page3.waitForTimeout(1000);
+await browserContext3.close();
 await browser.close();
 
 });
-
