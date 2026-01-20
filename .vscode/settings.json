@@ -1,0 +1,9 @@
+{
+    "chat.mcp.serverSampling": {
+        "playwrightDemo/.vscode/mcp.json: playwright-test": {
+            "allowedModels": [
+                "copilot/gpt-5-mini"
+            ]
+        }
+    }
+}
