@@ -1,3 +1,4 @@
+
 import {test, expect, Browser, Page, BrowserContext} from '@playwright/test';
 import {chromium, firefox, webkit} from 'playwright';
 
@@ -31,4 +32,12 @@ await page3.waitForTimeout(1000);
 await browserContext3.close();
 await browser.close();
 
+/*
+await page1.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
+await page1.fill('input#input-email', 'pwtest@opencart.com');
+await page1.fill('input#input-password', 'playwright@123');
+await page1.click('input[value="Login"]');
+await expect(page1).toHaveTitle('Account Login');
+await browserContext1.close();
+*/
 });
