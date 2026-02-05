@@ -1,23 +1,18 @@
-import {test, expect, Browser, Page} from '@playwright/test';
-import {chromium, firefox, webkit} from 'playwright';
+import { test, expect } from '@playwright/test';
+import { gotoOpencartOrSkip } from './helpers/opencart';
 
-test('Accessibility Test', async() => {
-const browser:Browser = await webkit.launch({ headless: true });
+test('Accessibility Test', async ({ page }) => {
+  await gotoOpencartOrSkip(
+    page,
+    'https://naveenautomationlabs.com/opencart/index.php?route=account/register'
+  );
 
-const browserContext1 = await browser.newContext();
-
-
-const page1:Page = await browserContext1.newPage();
-await page1.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/register');
-await expect(page1.getByRole('heading', {name: 'Register Account'})).toBeVisible();
-await expect(page1.getByRole('link', {name: 'Downloads'})).toBeVisible();
-await expect(page1.getByRole('radio', {name: 'Yes'})).toBeVisible();
-await expect(page1.getByRole('radio', {name: 'No'})).toBeVisible();
-await expect(page1.getByRole('checkbox')).toBeVisible();
-await page1.getByRole('checkbox').click();
-await expect(page1.getByRole('button', {name: 'Continue'})).toBeVisible();
-await browserContext1.close();
-
-await browser.close();
-
+  await expect(page.getByRole('heading', { name: 'Register Account' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Downloads' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'Yes' })).toBeVisible();
+  await expect(page.getByRole('radio', { name: 'No' })).toBeVisible();
+  await expect(page.getByRole('checkbox')).toBeVisible();
+  await page.getByRole('checkbox').check();
+  await expect(page.getByRole('checkbox')).toBeChecked();
+  await expect(page.getByRole('button', { name: 'Continue' })).toBeVisible();
 });

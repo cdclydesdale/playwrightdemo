@@ -34,17 +34,6 @@ test('mouse hover and click', async() => {
   await page1.getByText('SCIENCE').first().click();
   await page1.waitForTimeout(2000);
   await browserContext1.close();
-
-  console.log('Testing out mouse right click')
-  const browserContext2 = await browser.newContext();
-  const page2:Page = await browserContext2.newPage();
-  await page2.goto('https://the-internet.herokuapp.com/context_menu');
-  page2.once('dialog', async (dialog) => {
-    await dialog.accept();
-  });
-  await page2.locator('#hot-spot').click({button: 'right'});
-  await page2.waitForTimeout(2000);
-  await browserContext2.close();
   
   `console.log('Testing out mouse hover')
   const browserContext3 = await browser.newContext();
@@ -67,5 +56,20 @@ test('mouse hover and click', async() => {
   const searchIcon = page4.locator("input[id='nav-search-submit-button']");
   await searchIcon.click();
   await browserContext4.close();`
+  await browser.close();
+});
+
+test.skip('mouse right click', async() => {
+  test.setTimeout(120000);
+  const browser:Browser = await chromium.launch({headless:true});
+  const browserContext2 = await browser.newContext();
+  const page2:Page = await browserContext2.newPage();
+  await page2.goto('https://the-internet.herokuapp.com/context_menu');
+  page2.once('dialog', async (dialog) => {
+    await dialog.accept();
+  });
+  await page2.locator('#hot-spot').click({button: 'right'});
+  await page2.waitForTimeout(2000);
+  await browserContext2.close();
   await browser.close();
 });
