@@ -3,7 +3,7 @@ import { test, expect, type Page } from '@playwright/test';
 const URL = 'https://the-internet.herokuapp.com/challenging_dom';
 
 async function gotoChallengingDom(page: Page) {
-  const maxAttempts = 3;
+  const maxAttempts = 2;
   for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
     await page.goto(URL);
 
