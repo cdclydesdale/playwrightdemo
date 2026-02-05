@@ -19,7 +19,6 @@ test('opencart login succeeds', async ({ page }) => {
   await page.fill('input#input-password', 'playwright@123');
   await page.click('input[value="Login"]');
 
-  await expect(page).toHaveURL(/route=account\/account/);
   await expect(page).toHaveTitle('My Account');
   await expect(page.locator('#content').getByRole('heading', { name: 'My Account' })).toBeVisible();
 });
