@@ -1,43 +1,32 @@
 
-import {test, expect, Browser, Page, BrowserContext} from '@playwright/test';
-import {chromium, firefox, webkit} from 'playwright';
+import { test, expect } from '@playwright/test';
 
-test('Login Test', async() => {
-const browser:Browser = await chromium.launch({ headless: true });
+const OPENCART_LOGIN_URL =
+  'https://naveenautomationlabs.com/opencart/index.php?route=account/login';
 
-const browserContext1 = await browser.newContext();
+test('opencart login page loads', async ({ page }) => {
+  await page.goto(OPENCART_LOGIN_URL, { waitUntil: 'domcontentloaded' });
 
+  await expect(page).toHaveTitle('Account Login');
+  await expect(page.getByRole('heading', { name: 'Returning Customer' })).toBeVisible();
+});
 
-const page1:Page = await browserContext1.newPage();
-await page1.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
-await page1.fill('input#input-email', 'pwtest@opencart.com');
-await page1.fill('input#input-password', 'playwright@123');
-await page1.click('input[value="Login"]');
-await expect(page1).toHaveTitle('My Account');
-await browserContext1.close();
+test('opencart login succeeds', async ({ page }) => {
+  await page.goto(OPENCART_LOGIN_URL, { waitUntil: 'domcontentloaded' });
 
-//browserContext2
-const browserContext2 = await browser.newContext();
-const page2:Page = await browserContext2.newPage();
-await page2.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
-await expect(page2).toHaveTitle("Account Login");
-await browserContext2.close(); 
+  await page.fill('input#input-email', 'pwtest@opencart.com');
+  await page.fill('input#input-password', 'playwright@123');
+  await page.click('input[value="Login"]');
 
-const browserContext3 = await browser.newContext({ baseURL: 'https://the-internet.herokuapp.com' });
-const page3:Page = await browserContext3.newPage();
-await page3.goto('/login');
-const username = page3.locator('#username');
-await username.fill('clydesdale');
-await page3.waitForTimeout(1000);
-await browserContext3.close();
-await browser.close();
+  await expect(page).toHaveURL(/route=account\/account/);
+  await expect(page).toHaveTitle('My Account');
+  await expect(page.getByRole('heading', { name: 'My Account' })).toBeVisible();
+});
 
-/*
-await page1.goto('https://naveenautomationlabs.com/opencart/index.php?route=account/login');
-await page1.fill('input#input-email', 'pwtest@opencart.com');
-await page1.fill('input#input-password', 'playwright@123');
-await page1.click('input[value="Login"]');
-await expect(page1).toHaveTitle('Account Login');
-await browserContext1.close();
-*/
+test('herokuapp login page accepts username input', async ({ page }) => {
+  await page.goto('https://the-internet.herokuapp.com/login', { waitUntil: 'domcontentloaded' });
+
+  const username = page.locator('#username');
+  await username.fill('clydesdale');
+  await expect(username).toHaveValue('clydesdale');
 });
