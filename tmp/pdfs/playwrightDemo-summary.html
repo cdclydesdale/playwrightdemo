@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>playwrightDemo - One-page repo summary</title>
+    <style>
+      @page {
+        size: Letter;
+        margin: 0;
+      }
+
+      :root {
+        --text: #111827;
+        --muted: #4b5563;
+        --border: #e5e7eb;
+        --code-bg: #f6f8fa;
+        --code-border: #e5e7eb;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      body {
+        margin: 0;
+        background: #f3f4f6;
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      }
+
+      .page {
+        box-sizing: border-box;
+        width: 8.5in;
+        height: 11in;
+        margin: 0 auto;
+        padding: 0.6in;
+        background: #ffffff;
+      }
+
+      @media screen {
+        .page {
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+      }
+
+      @media print {
+        body {
+          background: #ffffff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+
+      h1 {
+        font-size: 18pt;
+        line-height: 1.12;
+        margin: 0 0 6px 0;
+        letter-spacing: -0.2px;
+      }
+
+      .meta {
+        margin: 0 0 10px 0;
+        font-size: 9pt;
+        color: var(--muted);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .section {
+        margin-top: 10px;
+      }
+
+      .section:first-child {
+        margin-top: 0;
+      }
+
+      h2 {
+        font-size: 12pt;
+        margin: 0 0 6px 0;
+        padding-bottom: 2px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      p {
+        margin: 0 0 6px 0;
+        font-size: 10.5pt;
+        line-height: 1.25;
+      }
+
+      .small {
+        font-size: 9pt;
+        color: var(--muted);
+        line-height: 1.25;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 16px;
+      }
+
+      li {
+        margin: 0 0 4px 0;
+        font-size: 10.5pt;
+        line-height: 1.25;
+      }
+
+      .code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        font-size: 9.2pt;
+        background: var(--code-bg);
+        border: 1px solid var(--code-border);
+        padding: 6px 8px;
+        border-radius: 6px;
+        white-space: pre;
+      }
+
+      .code-inline {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+          "Courier New", monospace;
+        font-size: 9.2pt;
+        background: var(--code-bg);
+        border: 1px solid var(--code-border);
+        padding: 1px 4px;
+        border-radius: 5px;
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1>playwrightDemo - One-page repo summary</h1>
+      <p class="meta">
+        Evidence-based summary from repo files (README.md, playwright.config.ts, tests/, .github/workflows/playwright.yml).
+      </p>
+
+      <div class="grid">
+        <div>
+          <div class="section">
+            <h2>What it is</h2>
+            <p>
+              Small Playwright Test (TypeScript) demo repository that runs end-to-end browser automation against public
+              demo sites and outputs an HTML report.
+            </p>
+            <p class="small"><b>Application source code under test:</b> Not found in repo (tests target external websites).</p>
+          </div>
+
+          <div class="section">
+            <h2>Who it's for</h2>
+            <p>Developers and QA/SDET engineers learning or prototyping Playwright Test patterns in TypeScript.</p>
+          </div>
+
+          <div class="section">
+            <h2>How to run</h2>
+            <div class="code">npm ci
+npx playwright install
+npx playwright test
+npx playwright show-report</div>
+            <p class="small">
+              Notes: Requires internet access (tests navigate to external sites). Optional config:
+              <span class="code-inline">npx playwright test -c playwright.config.dev.ts</span>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="section">
+            <h2>What it does</h2>
+            <ul>
+              <li>Runs Playwright Test specs in <span class="code-inline">tests/</span> using <span class="code-inline">@playwright/test</span>.</li>
+              <li>Executes across Chromium, Firefox, and WebKit with HTML reporting and trace capture on first retry.</li>
+              <li>Validates login flows (Opencart account login + the-internet login) and negative login error messaging.</li>
+              <li>Demonstrates interactions: form fill, role-based locators, dropdown select, focus, checkbox/radio checks, and locator chaining.</li>
+              <li>Includes smoke coverage for the "Challenging DOM" page, with retry/skip on intermittent server errors.</li>
+              <li>Demonstrates HTTP Basic Auth via an <span class="code-inline">Authorization</span> header.</li>
+              <li>Shows a persistent browser context with a profile stored under <span class="code-inline">test-results/</span>.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h2>How it works (architecture)</h2>
+            <ul>
+              <li><b>Runner:</b> <span class="code-inline">npx playwright test</span> loads <span class="code-inline">playwright.config.ts</span> (browser projects + HTML reporter).</li>
+              <li><b>Tests:</b> Specs drive <span class="code-inline">page</span> interactions and assertions against external URLs (e.g., the-internet.herokuapp.com, naveenautomationlabs.com).</li>
+              <li><b>Resilience:</b> Helper <span class="code-inline">tests/helpers/opencart.ts</span> retries navigation and skips when unreachable.</li>
+              <li><b>Outputs:</b> HTML report in <span class="code-inline">playwright-report/</span>; run artifacts in <span class="code-inline">test-results/</span>.</li>
+              <li><b>CI:</b> GitHub Actions workflow installs deps + browsers, runs tests, and uploads the HTML report artifact.</li>
+            </ul>
+          </div>
+
+          <div class="section">
+            <h2>Not found in repo</h2>
+            <ul>
+              <li>A local app/server to start via Playwright <span class="code-inline">webServer</span> (config block exists but is commented out).</li>
+              <li>Centralized test data/secret management (some tests use hard-coded credentials and values).</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
