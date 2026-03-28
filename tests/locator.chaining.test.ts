@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { gotoOpencartOrSkip } from './helpers/opencart';
 
-test('locator chaining test', async ({ page }) => {
+test('@locatorchaining - Locator Chaining Test', async ({ page }) => {
   await gotoOpencartOrSkip(
     page,
     'https://naveenautomationlabs.com/opencart/index.php?route=account/register'

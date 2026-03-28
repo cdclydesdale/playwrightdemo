@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { gotoOpencartOrSkip } from './helpers/opencart';
 
-test('Accessibility Test', async ({ page }) => {
+test('@accessibility - Accessibility Test', async ({ page }) => {
   await gotoOpencartOrSkip(
     page,
     'https://naveenautomationlabs.com/opencart/index.php?route=account/register'
