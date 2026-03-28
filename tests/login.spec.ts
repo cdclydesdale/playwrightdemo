@@ -1,5 +1,5 @@
-// Import necessary modules from @playwright/test
-import { test, expect } from '@playwright/test';
+// Import necessary modules from fixture-aware test wrapper
+import { test, expect } from './fixtures/heroku-login';
 // Import helper function to navigate OpenCart or skip it if not needed
 import { gotoOpencartOrSkip } from './helpers/opencart';
 
@@ -41,10 +41,8 @@ test.skip(
 /**
  * Test that the Herokuapp login page accepts username input.
  */
-test('herokuapp login page accepts username input', async ({ page }) => {
-  await page.goto('https://the-internet.herokuapp.com/login', { waitUntil: 'domcontentloaded' });
-
-  const username = page.locator('#username');
-  await username.fill('clydesdale');
-  await expect(username).toHaveValue('clydesdale');
+test('herokuapp login page accepts username input', async ({ herokuLoginPage }) => {
+  await herokuLoginPage.goto();
+  await herokuLoginPage.usernameInput.fill('clydesdale');
+  await expect(herokuLoginPage.usernameInput).toHaveValue('clydesdale');
 });

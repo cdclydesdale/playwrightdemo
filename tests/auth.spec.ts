@@ -1,8 +1,8 @@
 import {test, expect, Browser, Page, BrowserContext} from '@playwright/test';
-import {chromium, firefox, webkit} from 'playwright';
+import {chromium} from 'playwright';
 
 test('auth test', async() =>  {
-    const browser: Browser = await webkit.launch({headless:true});
+    const browser: Browser = await chromium.launch({headless:true});
     const browserContext: BrowserContext = await browser.newContext();
 
     const uname = 'admin';
