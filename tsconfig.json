@@ -1,5 +1,11 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs",
+      "verbatimModuleSyntax": false
+    }
+  },
   "compilerOptions": {
     // File Layout
     // "rootDir": "./src",
@@ -7,7 +13,7 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "nodenext", 
     "target": "ES6",
     "types": [],
     // For nodejs:
@@ -39,6 +45,6 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }
