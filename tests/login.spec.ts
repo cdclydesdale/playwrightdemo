@@ -23,7 +23,12 @@ test('opencart login page loads', async ({ page }) => {
  */
 test.skip(
   'opencart login succeeds',
-  'Temporarily skipped: external site/account state is unstable',
+  {
+    annotation: {
+      type: 'skip',
+      description: 'Temporarily skipped: external site/account state is unstable',
+    },
+  },
   async ({ page }) => {
     await gotoOpencartOrSkip(page, OPENCART_LOGIN_URL);
 
